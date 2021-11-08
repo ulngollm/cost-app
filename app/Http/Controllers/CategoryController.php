@@ -19,4 +19,11 @@ class CategoryController extends Controller
         $category->save();
         return response('OK');
     }
+
+    public function getCostAddForm(){
+        $categories = $this->getAll();
+        return view('cost_add', ['categories'=>$categories]);
+    }
+    //нелогично держать вьюху формы в контроллере категорий
+    //но как прокинуть CategoryController->getAll в другой контроллер?
 }

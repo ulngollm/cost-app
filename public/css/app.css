@@ -1,0 +1,139 @@
+.form__label {
+    color: #A0AEC0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    background: #EDF2F7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: "Ubuntu", sans-serif;
+    color: #4A5568;
+    scroll-behavior: smooth;
+  }
+
+  .form {
+    padding: 50px;
+    border-radius: 15px;
+    width: 320px;
+    background: white;
+    box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.04);
+  }
+  .form__input_group {
+    margin-bottom: 25px;
+  }
+  .form__label {
+    display: block;
+    margin-bottom: 6px;
+  }
+  .form__input {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 0;
+    line-height: 40px;
+    background: #EDF2F7;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    padding: 0 12px;
+    color: #4A5568;
+    font-family: inherit;
+    font-size: 16px;
+  }
+  .form__input:focus {
+    outline-color: #00C2B7;
+    border-color: #00C2B7;
+  }
+  .form__input::placeholder {
+    color: #4A5568;
+    font-family: inherit;
+    font-size: 16px;
+  }
+
+  .btn {
+    display: block;
+    background: #00C2B7;
+    color: white;
+    padding: 0 12px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  .btn:hover {
+    opacity: 0.7;
+  }
+
+  .menu {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    top: 50%;
+    left: 100px;
+    transform: translateY(-50%);
+  }
+  @media (max-width: 800px) {
+    .menu {
+      display: none;
+    }
+  }
+  .menu__item {
+    margin-bottom: 20px;
+    display: block;
+    box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.04);
+  }
+  .menu__item_active {
+    background: white;
+    color: #4A5568;
+  }
+  .menu__item_active:hover {
+    opacity: 1;
+  }
+
+  .table {
+    width: 800px;
+  }
+  .table__row {
+    display: flex;
+    justify-content: stretch;
+    width: 100%;
+    padding: 25px 20px;
+    margin-bottom: 25px;
+    background: white;
+    box-shadow: 10px 10px 20px 10px rgba(0, 0, 0, 0.04);
+    border-radius: 15px;
+  }
+  .table__row_head {
+    margin-bottom: 0;
+    position: sticky;
+    top: 0;
+  }
+  .table__row_section {
+    font-weight: bold;
+    padding: 0 20px;
+    margin: 20px 0;
+  }
+  .table__cell {
+    flex: 1;
+  }
+  .table__cell:last-of-type {
+    text-align: right;
+  }
+
+  .table__row_head, .table__row_section {
+    background: transparent;
+    box-shadow: none;
+    color: #A0AEC0;
+  }
+
+  /*# sourceMappingURL=style.css.map */
