@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/expense', [ExpenseController::class, 'getAll']);
 Route::get('/expense/week', [ExpenseController::class, 'getAllOfLastWeek']);
+Route::get('/expense/day', [ExpenseController::class, 'getAllByDate']);
+Route::get('/expense/day/{date}', [ExpenseController::class, 'getOneByDate']);
 Route::get('/expense/{id}', [ExpenseController::class, 'getOne']);
 Route::put('/expense/{id}', [ExpenseController::class, 'updateOne']);
 Route::post('/expense', [ExpenseController::class, 'add']);
