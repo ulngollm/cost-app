@@ -11,10 +11,10 @@
     @yield('content')
 
     <nav class="menu">
-        <a href="/" class="btn menu__item">Добавить расход</a>
+        <a href="/cost/add" class="btn menu__item">Добавить расход</a>
         <a href="/income/add/" class="btn menu__item">Добавить доход</a>
-        <a href="/all/" class="btn menu__item">Все расходы</a>
-        <a href="/income/" class="btn menu__item">Все доходы</a>
+        <a href="/cost/all" class="btn menu__item">Все расходы</a>
+        <a href="/income/all" class="btn menu__item">Все доходы</a>
     </nav>
 
 </body>

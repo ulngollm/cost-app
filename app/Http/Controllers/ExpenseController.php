@@ -50,4 +50,10 @@ class ExpenseController extends Controller
         }
         return response('OK');
     }
+
+    public function showList(Request $request)
+    {
+        $expenses = $this->getAll($request);
+        return view('cost/list', ['title'=>'list', 'expenses'=>$expenses]);
+    }
 }
