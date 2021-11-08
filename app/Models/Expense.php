@@ -12,7 +12,7 @@ class Expense extends Model
     // protected $table = 'expense';
 
     public $timestamps = false;
-    protected $fillable = [
+    protected $fillable = [//если не указать, нельзя будет установить свойства через Expense::create()
         'name',
         'category',
         'quantity',
