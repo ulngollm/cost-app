@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AddController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ViewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/cost/add');
 });
-Route::get('/cost/add', [CategoryController::class, 'getCostAddForm']);
-Route::get('/cost/all', [ExpenseController::class, 'showList']);
+Route::get('/cost/add', [ViewController::class, 'getCostAddForm']);
+Route::get('/cost/all', [ViewController::class, 'showCostList']);
+Route::get('/income/add', [ViewController::class, 'getIncomeAddForm']);
+Route::get('/income/all', [ViewController::class, 'showIncomeList']);
