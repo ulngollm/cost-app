@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Expense;
 use Illuminate\Http\Request;
 
@@ -12,30 +13,36 @@ class ExpenseController extends Controller
         $count = $request->count ?? '100';
         $page = $request->page ?? '1';
         $offset = ($page - 1) * $count;
-        return Expense::all()->skip($offset)->take($count);
+        return Expense::query()->orderBy('date', 'desc')->skip($offset)->take($count)->get();
     }
 
     public function getAllOfLastWeek()
     {
         //работа с датами https://www.digitalocean.com/community/tutorials/easier-datetime-in-laravel-and-php-with-carbon
         $startDate = now()->subWeek()->toDateString();
-        return Expense::where('date', '>', $startDate)->get();
+        $query = Expense::where('date', '>', $startDate)->orderBy('date', 'desc');
+        $query->addSelect([
+            'category' => Category::select('name')
+                ->whereColumn('categories.id','category')
+        ]);
+        return $query->get();
     }
 
     public function getAllByDate()
     {
-        $list = $this->getAll();
+        $list = $this->getAllOfLastWeek();
         $groupedList = [];
-        foreach($list as $item){
+        foreach ($list as $item) {
             $groupedList[$item->date]['items'][] = $item;
         }
-        foreach($groupedList as &$group){
+        foreach ($groupedList as &$group) {
             $group['total'] = array_sum(array_column($group['items'], 'sum'));
         }
         return $groupedList;
     }
 
-    public function getOneByDate(Request $request){
+    public function getOneByDate(Request $request)
+    {
         return Expense::where('date', $request->date)->get();
     }
 
@@ -66,11 +73,5 @@ class ExpenseController extends Controller
             $expense->save();
         }
         return response('OK');
-    }
-
-    public function showList(Request $request)
-    {
-        $expenses = $this->getAllByDate();
-        return view('cost/list', ['title'=>'list', 'expenses'=>$expenses]);
     }
 }

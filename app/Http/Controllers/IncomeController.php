@@ -9,7 +9,7 @@ class IncomeController extends Controller
 {
     public function getAll()
     {
-        return Income::all();
+        return Income::query()->orderBy('date', 'desc')->get();
     }
 
     public function add(Request $request)
