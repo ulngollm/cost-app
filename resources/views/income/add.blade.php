@@ -8,8 +8,8 @@
             <input id="name" name="name" type="text" class="form__input" autofocus>
         </div>
         <div class="form__input_group">
-            <label for="price" class="form__label">Сумма</label>
-            <input id="price" name="price" type="text" class="form__input">
+            <label for="sum" class="form__label">Сумма</label>
+            <input id="sum" name="sum" type="text" class="form__input">
         </div>
         <div class="form__input_group">
             <label for="date" class="form__label">Дата</label>

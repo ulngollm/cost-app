@@ -51,5 +51,10 @@ function formatDecimal(elem) {
 }
 setCurrentDate();
 
-document.querySelector('input[name="sum"]').addEventListener('input', (e) => formatDecimal(e.target));
-document.querySelector('input[name="quantity"]').addEventListener('input', (e) => formatDecimal(e.target));
+try{
+    document.querySelector('input[name="sum"]').addEventListener('input', (e) => formatDecimal(e.target));
+    document.querySelector('input[name="quantity"]').addEventListener('input', (e) => formatDecimal(e.target));
+
+}catch(e){
+
+}
