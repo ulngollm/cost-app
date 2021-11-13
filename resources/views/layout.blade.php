@@ -11,10 +11,11 @@
     @yield('content')
 
     <nav class="menu">
-        <a href="/cost/add" class="btn menu__item">Добавить расход</a>
-        <a href="/income/add/" class="btn menu__item">Добавить доход</a>
-        <a href="/cost/all" class="btn menu__item">Все расходы</a>
-        <a href="/income/all" class="btn menu__item">Все доходы</a>
+        {{-- https://qna.habr.com/q/610938 --}}
+        <a href="{{ route('cost.add') }}" class="btn menu__item {{ request()->routeIs('cost.add') ? 'menu__item_active' : '' }}">Добавить расход</a>
+        <a href="{{ route('income.add') }}" class="btn menu__item {{ request()->routeIs('income.add') ? 'menu__item_active' : '' }}">Добавить доход</a>
+        <a href="{{ route('cost.list') }}" class="btn menu__item {{ request()->routeIs('cost.list') ? 'menu__item_active' : '' }}">Все расходы</a>
+        <a href="{{ route('income.list') }}" class="btn menu__item {{ request()->routeIs('income.list') ? 'menu__item_active' : '' }}">Все доходы</a>
     </nav>
 
 </body>

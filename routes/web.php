@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    return redirect('/cost/add');
+    return redirect()->route('cost.add');
 });
-Route::get('/cost/add', [ViewController::class, 'getCostAddForm']);
-Route::get('/cost/all', [ViewController::class, 'showCostList']);
-Route::get('/income/add', [ViewController::class, 'getIncomeAddForm']);
-Route::get('/income/all', [ViewController::class, 'showIncomeList']);
+Route::get('/cost/add', [ViewController::class, 'getCostAddForm'])->name('cost.add');
+Route::get('/cost/all', [ViewController::class, 'showCostList'])->name('cost.list');
+Route::get('/income/add', [ViewController::class, 'getIncomeAddForm'])->name('income.add');
+Route::get('/income/all', [ViewController::class, 'showIncomeList'])->name('income.list');
