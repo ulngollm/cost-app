@@ -8,12 +8,9 @@ use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
 {
-    public function getAll(Request $request = null)
+    public function getAll()
     {
-        $count = $request->count ?? '100';
-        $page = $request->page ?? '1';
-        $offset = ($page - 1) * $count;
-        return Expense::query()->orderBy('date', 'desc')->skip($offset)->take($count)->get();
+        return Expense::orderBy('date', 'desc')->paginate(10);
     }
 
     public function getAllOfLastWeek()
@@ -58,9 +55,12 @@ class ExpenseController extends Controller
         return response('OK');
     }
 
-    public function getOne(Request $request)
+    public function getOne($id)
+    // можно без параметра request
+    // https://laravel.com/docs/8.x/routing#required-parameters
     {
-        return Expense::find($request->id);
+        // зачем id есть и в $request, и в $id??
+        return Expense::find($id);
     }
 
     public function updateOne(Request $request)
