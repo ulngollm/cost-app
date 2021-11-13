@@ -9,7 +9,24 @@ class IncomeController extends Controller
 {
     public function getAll()
     {
-        return Income::query()->orderBy('date', 'desc')->get();
+        return Income::orderBy('date', 'desc')->paginate(10);
+    }
+
+    public function getOne($id)
+    {
+        return Income::find($id);
+    }
+
+    public function updateOne(Request $request, $id)
+    {
+        $expense = Income::find($id);
+        if ($expense) {
+            foreach ($request->keys() as $key) {
+                $expense->$key = $request->$key;
+            }
+            $expense->save();
+        }
+        return response()->setStatusCode(404);
     }
 
     public function add(Request $request)
