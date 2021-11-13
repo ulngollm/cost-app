@@ -27,4 +27,5 @@ Route::post('/expense', [ExpenseController::class, 'add']);
 Route::get('/income', [IncomeController::class, 'getAll']);
 Route::post('/income', [IncomeController::class, 'add']);
 Route::get('/category', [CategoryController::class, 'getAll']);
+Route::get('/category/{id}', [CategoryController::class, 'getOne']);
 Route::post('/category', [CategoryController::class, 'add']);

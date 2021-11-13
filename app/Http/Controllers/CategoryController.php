@@ -12,6 +12,11 @@ class CategoryController extends Controller
         return Category::all();
     }
 
+    public function getOne(Request $request, $id)
+    {
+        return Category::find($id);
+    }
+
     public function add(Request $request)
     {
         $category = new Category;
