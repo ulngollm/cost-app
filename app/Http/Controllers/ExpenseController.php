@@ -74,4 +74,10 @@ class ExpenseController extends Controller
         }
         return response('OK');
     }
+
+    public function deleteOne($id){
+        $expense = Expense::find($id);
+        $expense->delete();
+        return response('OK');
+    }
 }
