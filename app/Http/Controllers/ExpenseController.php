@@ -5,22 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Expense;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
 class ExpenseController extends Controller
 {
     public function getAll()
     {
-        return Expense::orderBy('date', 'desc')->paginate(10);
+        $expenses = Expense::orderBy('date', 'desc')->get()->groupBy('date');
+        $result =  new Paginator($expenses, 7, 1);
+        return $result;
+        // return Expense::paginate(10);
     }
 
-    public function getAllOfLastWeek()
+    public function getAllOfLastWeek(Request $request)
     {
+        $page = $request->page;
         //работа с датами https://www.digitalocean.com/community/tutorials/easier-datetime-in-laravel-and-php-with-carbon
-        $startDate = now()->subWeek()->toDateString();
-        $query = Expense::where('date', '>', $startDate)->orderBy('date', 'desc');
+        $startDate = now()->subWeek($page + 1)->toDateString();
+        $endDate = now()->subWeek($page)->toDateString();
+        $query = Expense::where('date', '>', $startDate)->where('date', '<', $endDate)->orderBy('date', 'desc');
         $query->addSelect([
             'category' => Category::select('name')
-                ->whereColumn('categories.id','category')
+                ->whereColumn('categories.id', 'category')
         ]);
         return $query->get();
     }
@@ -75,7 +82,8 @@ class ExpenseController extends Controller
         return response('OK');
     }
 
-    public function deleteOne($id){
+    public function deleteOne($id)
+    {
         $expense = Expense::find($id);
         $expense->delete();
         return response('OK');

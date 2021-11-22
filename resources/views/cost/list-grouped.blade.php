@@ -8,8 +8,8 @@
         <div class="table__cell">Количество</div>
         <div class="table__cell">Цена</div>
     </div>
-    {{$expenses->onEachSide(1)->links()}}
-        @foreach ($groups as $key => $group)
+    {{$expenses->links()}}
+        @foreach ($expenses as $key => $group)
             <div class="table__row table__row_section">
                 <div class="table__cell">{{$key}}</div>
                 <div class="table__cell">₽</div>

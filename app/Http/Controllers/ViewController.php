@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Expense;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class ViewController extends Controller
 {
@@ -21,12 +23,13 @@ class ViewController extends Controller
 
     public function showCostList()
     {
-        $controller = new ExpenseController();
-        $expenses = $controller->getAll();
+        $expenses = Expense::orderBy('date', 'desc')->get()->groupBy('date');
+        $result =  new Paginator($expenses, 7, null, [
+            'path' => '/cost/all'
+        ]);
         return view('cost/list-grouped', [
             'title' => 'Список расходов',
-            'groups' => $expenses->groupBy('date'),
-            'expenses' => $expenses
+            'expenses' => $result->withPath('/cost/all')
         ]);
     }
 
