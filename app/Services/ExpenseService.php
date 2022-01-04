@@ -21,14 +21,10 @@ class ExpenseService
                 ->whereColumn('categories.id', 'category')
         ]);
         $expenses = $query->get();
+
         $expenses = self::groupByDays($expenses);
-        return self::paginateWeekResult($expenses, $page);
-    }
-
-    public static function paginateWeekResult($expenses, $page)
-    {
-
-        $result =  new Paginator($expenses, null, $page);//второй параметр установить в null, чтобы дополнительно не обрезал переданный массив
+        self::calculateDailySum($expenses);
+        $result = self::paginateWeekResult($expenses, $page);
         return $result;
     }
 
@@ -36,5 +32,20 @@ class ExpenseService
     {
         $result = $result->groupBy('date');
         return $result;
+    }
+
+    public static function paginateWeekResult($expenses, $page)
+    {
+
+        $result =  new Paginator($expenses, null, $page); //второй параметр установить в null, чтобы дополнительно не обрезал переданный массив
+        return $result;
+    }
+
+
+    public static function calculateDailySum(&$items)
+    {
+        foreach($items as &$expenses){
+            $expenses['amount'] = $expenses->sum('sum');
+        }
     }
 }
