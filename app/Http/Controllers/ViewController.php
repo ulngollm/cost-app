@@ -14,12 +14,12 @@ class ViewController extends Controller
     {
         $controller = new CategoryController();
         $categories = $controller->getAll();
-        return view('cost/add', ['categories' => $categories]);
+        return view('cost/add', ['categories' => $categories, 'title' => 'Добавить расход']);
     }
 
     public function getIncomeAddForm()
     {
-        return view('income/add');
+        return view('income/add', ['title' => 'Добавить доход']);
     }
 
     public function showCostList(Request $request)
