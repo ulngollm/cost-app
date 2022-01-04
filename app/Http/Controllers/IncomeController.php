@@ -26,7 +26,7 @@ class IncomeController extends Controller
             }
             $expense->save();
         }
-        return response()->setStatusCode(404);
+        return response('OK');
     }
 
     public function add(Request $request)

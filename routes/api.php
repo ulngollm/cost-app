@@ -29,6 +29,8 @@ Route::delete('/expense/{id}', [ExpenseController::class, 'deleteOne']);
 
 Route::get('/income', [IncomeController::class, 'getAll']);
 Route::post('/income', [IncomeController::class, 'add']);
+Route::get('/income/{id}', [IncomeController::class, 'getOne']);
+Route::put('/income/{id}', [IncomeController::class, 'updateOne']);
 
 Route::get('/category', [CategoryController::class, 'getAll']);
 Route::get('/category/{id}', [CategoryController::class, 'getOne']);
