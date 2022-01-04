@@ -4,8 +4,9 @@ namespace App\Services;
 
 use App\Models\Expense;
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
-
+use Illuminate\Support\Facades\Log;
 
 class ExpenseService
 {
@@ -13,13 +14,15 @@ class ExpenseService
     {
         //работа с датами https://www.digitalocean.com/community/tutorials/easier-datetime-in-laravel-and-php-with-carbon
 
-        $startDate = now()->subWeek($page + 1)->toDateString();
-        $endDate = now()->subWeek($page)->toDateString();
-        $query = Expense::where('date', '>', $startDate)->where('date', '<', $endDate)->orderBy('date', 'desc');
+        $nearestDate = now()->subWeek($page - 1)->toDateString();
+
+        $lastDate = now()->subWeek($page)->toDateString();
+        $query = Expense::where('date', '>', $lastDate)->where('date', '<=', $nearestDate)->orderBy('date', 'desc');
         $query->addSelect([
             'category' => Category::select('name')
                 ->whereColumn('categories.id', 'category')
         ]);
+        // Log::info(serialize($query));
         $expenses = $query->get();
 
         $expenses = self::groupByDays($expenses);

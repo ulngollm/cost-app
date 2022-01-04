@@ -25,6 +25,6 @@
                 @endif
             @endforeach
         @endforeach
-
-        </div>
+    {{$expenses->links()}}
+</div>
 @endsection
