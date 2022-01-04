@@ -2,47 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Expense;
+use App\Services\ExpenseService;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Route;
 
 class ExpenseController extends Controller
 {
-    public function getAll()
+    public function getLast()
     {
-        $expenses = Expense::orderBy('date', 'desc')->get()->groupBy('date');
-        $result =  new Paginator($expenses, 7, 1);
-        return $result;
-        // return Expense::paginate(10);
+        $expenses = Expense::orderBy('date', 'desc')->paginate(10);
+        return $expenses;
     }
 
     public function getAllOfLastWeek(Request $request)
     {
-        $page = $request->page;
-        //работа с датами https://www.digitalocean.com/community/tutorials/easier-datetime-in-laravel-and-php-with-carbon
-        $startDate = now()->subWeek($page + 1)->toDateString();
-        $endDate = now()->subWeek($page)->toDateString();
-        $query = Expense::where('date', '>', $startDate)->where('date', '<', $endDate)->orderBy('date', 'desc');
-        $query->addSelect([
-            'category' => Category::select('name')
-                ->whereColumn('categories.id', 'category')
-        ]);
-        return $query->get();
-    }
+        $page = $request->page ?? 1;
+        $expenses = ExpenseService::getExpensesByWeek($page);
+        $baseUri = Route::current()->uri;
+        $result = $expenses->withPath("/$baseUri");
+        return $result;
 
-    public function getAllByDate()
-    {
-        $list = $this->getAllOfLastWeek();
-        $groupedList = [];
-        foreach ($list as $item) {
-            $groupedList[$item->date]['items'][] = $item;
-        }
-        foreach ($groupedList as &$group) {
-            $group['total'] = array_sum(array_column($group['items'], 'sum'));
-        }
-        return $groupedList;
     }
 
     public function getOneByDate(Request $request)

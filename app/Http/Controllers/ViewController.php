@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Expense;
+use App\Services\ExpenseService;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
@@ -21,15 +22,13 @@ class ViewController extends Controller
         return view('income/add');
     }
 
-    public function showCostList()
+    public function showCostList(Request $request)
+
     {
-        $expenses = Expense::orderBy('date', 'desc')->get()->groupBy('date');
-        $result =  new Paginator($expenses, 7, null, [
-            'path' => '/cost/all'
-        ]);
+        $result = call_user_func([ExpenseController::class, 'getAllOfLastWeek'], $request);
         return view('cost/list-grouped', [
             'title' => 'Список расходов',
-            'expenses' => $result->withPath('/cost/all')
+            'expenses' => $result
         ]);
     }
 
