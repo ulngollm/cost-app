@@ -12,7 +12,7 @@ class CategoryController extends Controller
         return Category::all();
     }
 
-    public function getOne(Request $request, $id)
+    public function getOne($id)
     {
         return Category::find($id);
     }
@@ -25,5 +25,23 @@ class CategoryController extends Controller
         return response('OK');
     }
 
+    public function updateOne(Request $request, $id)
+    {
+        $expense = Category::find($id);
+        if ($expense) {
+            foreach ($request->keys() as $key) {
+                $expense->$key = $request->$key;
+            }
+            $expense->save();
+        }
+        return response('OK');
+    }
+
+    public function deleteOne($id)
+    {
+        $expense = Category::find($id);
+        $expense->delete();
+        return response('OK');
+    }
 
 }

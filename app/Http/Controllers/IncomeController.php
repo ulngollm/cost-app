@@ -17,6 +17,17 @@ class IncomeController extends Controller
         return Income::find($id);
     }
 
+
+    public function add(Request $request)
+    {
+        Income::create([
+            'name'=>$request->name,
+            'sum'=>$request->sum,
+            'date'=>$request->date
+        ]);
+        return response('OK');
+    }
+
     public function updateOne(Request $request, $id)
     {
         $expense = Income::find($id);
@@ -29,13 +40,11 @@ class IncomeController extends Controller
         return response('OK');
     }
 
-    public function add(Request $request)
+    public function deleteOne($id)
     {
-        Income::create([
-            'name'=>$request->name,
-            'sum'=>$request->sum,
-            'date'=>$request->date
-        ]);
+        $expense = Income::find($id);
+        $expense->delete();
         return response('OK');
     }
+
 }
